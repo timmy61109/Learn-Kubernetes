@@ -1,19 +1,35 @@
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: my-deployment
+  name: blue-nginx
 spec:
-  replicas: 3
+  replicas: 2
   template:
     metadata:
       labels:
-        app: demoApp
+        app: blue-nginx
     spec:
       containers:
-        - name: kubernetes-demo-container
-          image: hcwxd/kubernetes-demo
+        - name: nginx
+          image: hcwxd/blue-whale
           ports:
             - containerPort: 3000
-  selector:
-    matchLabels:
-      app: demoApp
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: purple-nginx
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: purple-nginx
+    spec:
+      containers:
+        - name: nginx
+          image: hcwxd/purple-whale
+          ports:
+            - containerPort: 3000
